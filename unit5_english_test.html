@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 5 English Test – My Town</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #0ea5aa;
+    --teal-dark: #0b7e82;
+    --yellow: #fbbf24;
+    --yellow-light: #fef9c3;
+    --pink: #f472b6;
+    --pink-light: #fce7f3;
+    --purple: #8b5cf6;
+    --purple-light: #ede9fe;
+    --green: #22c55e;
+    --green-light: #dcfce7;
+    --red: #ef4444;
+    --red-light: #fee2e2;
+    --bg: #f0fafa;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --radius: 18px;
+    --shadow: 0 4px 24px rgba(14,165,170,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 60px;
+  }
+
+  header {
+    background: linear-gradient(135deg, var(--teal) 0%, #0891b2 60%, #7c3aed 100%);
+    color: white;
+    text-align: center;
+    padding: 36px 20px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -50px; right: -30px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+
+  header h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    position: relative; z-index: 1;
+  }
+
+  header p {
+    font-size: 1rem;
+    opacity: 0.88;
+    margin-top: 6px;
+    position: relative; z-index: 1;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.22);
+    border-radius: 30px;
+    padding: 4px 16px;
+    font-size: 0.82rem;
+    margin-top: 10px;
+    position: relative; z-index: 1;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 14px;
+  }
+
+  .section-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--teal-dark);
+    margin: 32px 0 14px;
+    padding: 10px 18px;
+    background: white;
+    border-radius: 12px;
+    border-left: 5px solid var(--teal);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title .icon { font-size: 1.3rem; }
+
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 18px 18px 16px;
+    margin-bottom: 14px;
+    border: 1.5px solid rgba(14,165,170,0.08);
+    transition: box-shadow 0.2s;
+  }
+
+  .card:hover { box-shadow: 0 6px 32px rgba(14,165,170,0.15); }
+
+  .q-number {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 5px;
+  }
+
+  .q-text {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  /* Multiple choice */
+  .options { display: flex; flex-direction: column; gap: 8px; }
+
+  .option-btn {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .option-btn:hover { background: var(--yellow-light); border-color: var(--yellow); }
+  .option-btn.selected { background: #e0f2fe; border-color: var(--teal); color: var(--teal-dark); }
+  .option-btn.correct { background: var(--green-light) !important; border-color: var(--green) !important; color: #166534 !important; }
+  .option-btn.wrong { background: var(--red-light) !important; border-color: var(--red) !important; color: #991b1b !important; }
+
+  .option-label {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    transition: background 0.18s;
+  }
+
+  .option-btn.selected .option-label { background: var(--teal); color: white; }
+  .option-btn.correct .option-label { background: var(--green); color: white; }
+  .option-btn.wrong .option-label { background: var(--red); color: white; }
+
+  /* Fill in the blank */
+  .blank-input {
+    width: 100%;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    background: #f8fafc;
+    transition: border-color 0.18s;
+    outline: none;
+  }
+
+  .blank-input:focus { border-color: var(--teal); background: white; }
+  .blank-input.correct { border-color: var(--green); background: var(--green-light); color: #166534; }
+  .blank-input.wrong { border-color: var(--red); background: var(--red-light); color: #991b1b; }
+
+  /* True/False */
+  .tf-options { display: flex; gap: 10px; }
+  .tf-btn {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    background: #f8fafc;
+    transition: all 0.18s;
+  }
+
+  .tf-btn:hover { background: var(--yellow-light); border-color: var(--yellow); }
+  .tf-btn.selected { background: #e0f2fe; border-color: var(--teal); color: var(--teal-dark); }
+  .tf-btn.correct { background: var(--green-light) !important; border-color: var(--green) !important; color: #166534 !important; }
+  .tf-btn.wrong { background: var(--red-light) !important; border-color: var(--red) !important; color: #991b1b !important; }
+
+  /* Matching */
+  .match-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .match-word {
+    flex: 0 0 auto;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--teal-dark);
+    background: var(--yellow-light);
+    border-radius: 8px;
+    padding: 6px 12px;
+    min-width: 130px;
+  }
+
+  .match-select {
+    flex: 1;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text);
+    background: #f8fafc;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.18s;
+  }
+
+  .match-select:focus { border-color: var(--teal); }
+  .match-select.correct { border-color: var(--green); background: var(--green-light); color: #166534; }
+  .match-select.wrong { border-color: var(--red); background: var(--red-light); color: #991b1b; }
+
+  /* Answer feedback */
+  .answer-reveal {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    background: var(--yellow-light);
+    border: 1.5px solid var(--yellow);
+    color: #92400e;
+  }
+
+  .answer-reveal.show { display: block; }
+  .answer-reveal.correct-ans { background: var(--green-light); border-color: var(--green); color: #166534; }
+  .answer-reveal.wrong-ans { background: var(--red-light); border-color: var(--red); color: #991b1b; }
+
+  /* Submit button */
+  .submit-wrap {
+    text-align: center;
+    margin: 36px 0 20px;
+  }
+
+  .submit-btn {
+    background: linear-gradient(135deg, var(--teal) 0%, #0891b2 100%);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 16px 48px;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(14,165,170,0.35);
+    transition: all 0.2s;
+    width: 100%;
+    max-width: 340px;
+  }
+
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(14,165,170,0.45); }
+  .submit-btn:active { transform: translateY(0); }
+
+  /* Score */
+  .score-box {
+    display: none;
+    background: linear-gradient(135deg, #7c3aed 0%, var(--teal) 100%);
+    color: white;
+    border-radius: var(--radius);
+    padding: 30px 20px;
+    text-align: center;
+    margin: 20px 0;
+    box-shadow: 0 8px 32px rgba(124,58,237,0.25);
+  }
+
+  .score-box.show { display: block; }
+
+  .score-number {
+    font-family: 'Baloo 2', cursive;
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .score-label { font-size: 1.1rem; opacity: 0.9; margin-top: 6px; }
+  .score-grade {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border-radius: 30px;
+    padding: 6px 24px;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 14px;
+  }
+
+  .score-emoji { font-size: 2.5rem; margin-bottom: 8px; display: block; }
+
+  /* Progress */
+  .progress-bar-wrap {
+    background: white;
+    border-radius: 30px;
+    height: 8px;
+    margin: 20px 0 8px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal), var(--yellow));
+    border-radius: 30px;
+    transition: width 0.4s;
+    width: 0%;
+  }
+
+  .progress-text {
+    text-align: right;
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  /* Inline blank input for sentences */
+  .inline-blank {
+    display: inline-block;
+    border: none;
+    border-bottom: 2px solid var(--teal);
+    background: transparent;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    width: 110px;
+    padding: 0 4px;
+    outline: none;
+    transition: border-color 0.18s;
+  }
+  .inline-blank:focus { border-bottom-color: var(--purple); }
+  .inline-blank.correct { border-bottom-color: var(--green); color: #166534; }
+  .inline-blank.wrong { border-bottom-color: var(--red); color: #991b1b; }
+
+  .word-bank {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 12px;
+    padding: 10px 12px;
+    background: var(--purple-light);
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--purple);
+  }
+
+  .word-bank span { background: white; border-radius: 6px; padding: 2px 10px; }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.82rem;
+    padding: 20px;
+  }
+
+  @media (max-width: 480px) {
+    header h1 { font-size: 1.5rem; }
+    .score-number { font-size: 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏙️ Unit 5 – My Town</h1>
+  <p>English Language Test • Complete all questions</p>
+  <span class="badge">40 Questions • Vocabulary · Grammar · Directions · Writing</span>
+</header>
+
+<div class="container">
+  <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="progress-text" id="progressText">0 / 40 answered</div>
+
+  <!-- SECTION 1: VOCABULARY - PLACES IN TOWN -->
+  <div class="section-title"><span class="icon">🏛️</span> Section 1 – Places in Town (Vocabulary)</div>
+
+  <!-- Q1 -->
+  <div class="card" data-q="1" data-type="mc" data-answer="b">
+    <div class="q-number">Question 1</div>
+    <div class="q-text">You go there to see a doctor. What is this place?</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> Library</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> Hospital</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> Stadium</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> Museum</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>Hospital</strong> = <em>szpital</em> — chodzisz tam do lekarza.</div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="card" data-q="2" data-type="mc" data-answer="c">
+    <div class="q-number">Question 2</div>
+    <div class="q-text">You can get money there. What is this place?</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> Café</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> Cinema</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> Bank</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> Park</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>Bank</strong> = <em>bank</em> — tam możesz wypłacić pieniądze.</div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="card" data-q="3" data-type="mc" data-answer="a">
+    <div class="q-number">Question 3</div>
+    <div class="q-text">You can see an Egyptian mummy there. What is this place?</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> Museum</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> Theatre</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> Restaurant</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> Supermarket</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>Museum</strong> = <em>muzeum</em> — tam można zobaczyć egipską mumię.</div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="card" data-q="4" data-type="mc" data-answer="d">
+    <div class="q-number">Question 4</div>
+    <div class="q-text">You watch a film there. What is this place?</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> Park</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> Hotel</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> Shop</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> Cinema</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>Cinema</strong> = <em>kino</em> — tam ogląda się filmy.</div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="card" data-q="5" data-type="mc" data-answer="b">
+    <div class="q-number">Question 5</div>
+    <div class="q-text">Which of these is a "Place in Town (2)"?</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> Stadium</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> Swimming pool</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> Library</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> Café</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>Swimming pool</strong> = <em>basen</em> — chodzisz tam pływać.</div>
+  </div>
+
+  <!-- SECTION 2: PREPOSITIONS OF PLACE -->
+  <div class="section-title"><span class="icon">📍</span> Section 2 – Prepositions of Place</div>
+
+  <!-- Q6 -->
+  <div class="card" data-q="6" data-type="mc" data-answer="c">
+    <div class="q-number">Question 6</div>
+    <div class="q-text">The café is _______ the cinema and the restaurant.</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> behind</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> next to</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> between</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> opposite</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>between</strong> = <em>pomiędzy</em> — kawiarnia jest pomiędzy kinem a restauracją.</div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="card" data-q="7" data-type="mc" data-answer="a">
+    <div class="q-number">Question 7</div>
+    <div class="q-text">The museum is _______ the cinema and the theatre. (They are side by side)</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> between</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> in front of</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> behind</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> opposite</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>between</strong> = <em>pomiędzy</em> — muzeum jest pomiędzy kinem a teatrem.</div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="card" data-q="8" data-type="mc" data-answer="b">
+    <div class="q-number">Question 8</div>
+    <div class="q-text">Fido is _______ the cinema. (Fido is facing the cinema, in front of it)</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> behind</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> in front of</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> next to</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> between</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>in front of</strong> = <em>przed</em> — Fido stoi przed kinem.</div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="card" data-q="9" data-type="mc" data-answer="d">
+    <div class="q-number">Question 9</div>
+    <div class="q-text">What does "opposite" mean in Polish?</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> za</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> obok</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> pomiędzy</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> naprzeciw</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>naprzeciw</strong> — <em>opposite</em> = naprzeciw, po drugiej stronie ulicy.</div>
+  </div>
+
+  <!-- Q10 – compound words -->
+  <div class="card" data-q="10" data-type="mc" data-answer="b">
+    <div class="q-number">Question 10</div>
+    <div class="q-text">You go there to swim. It has a big pool inside. What is this place?</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> Sports centre</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> Swimming pool</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> Shopping centre</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> Train station</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>Swimming pool</strong> = <em>basen</em> — idziesz tam pływać.</div>
+  </div>
+
+  <!-- SECTION 3: PAST SIMPLE – TO BE (AFFIRMATIVE & NEGATIVE) -->
+  <div class="section-title"><span class="icon">📝</span> Section 3 – Past Simple: to be (was / were)</div>
+
+  <!-- Q11 -->
+  <div class="card" data-q="11" data-type="mc" data-answer="a">
+    <div class="q-number">Question 11</div>
+    <div class="q-text">It _______ Lucas's birthday last Saturday. 🎂 <em>Choose the correct <strong>positive</strong> form for the subject "it".</em></div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> was</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> were</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>was</strong> — podmiot "it" = liczba pojedyncza → <em>was</em>. &nbsp; Zasada: I/he/she/it → <strong>was</strong> &nbsp;|&nbsp; you/we/they → <strong>were</strong></div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="card" data-q="12" data-type="mc" data-answer="b">
+    <div class="q-number">Question 12</div>
+    <div class="q-text">There _______ any buses — the bus stop was completely empty! 🚌 <em>Choose the correct <strong>negative</strong> form for the subject "buses" (plural).</em></div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> wasn't</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> weren't</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>weren't</strong> — "buses" = liczba mnoga → <em>weren't</em>. &nbsp; Zasada: liczba pojedyncza → <strong>wasn't</strong> &nbsp;|&nbsp; liczba mnoga → <strong>weren't</strong></div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="card" data-q="13" data-type="mc" data-answer="b">
+    <div class="q-number">Question 13</div>
+    <div class="q-text">Amy, Elena and Tom _______ at the cinema together. 🎬 <em>Choose the correct <strong>positive</strong> form for three people (plural).</em></div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> was</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> were</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>were</strong> — trzy osoby = liczba mnoga → <em>were</em>. &nbsp; Zasada: I/he/she/it → <strong>was</strong> &nbsp;|&nbsp; you/we/they → <strong>were</strong></div>
+  </div>
+
+  <!-- Q14 -->
+  <div class="card" data-q="14" data-type="mc" data-answer="a">
+    <div class="q-number">Question 14</div>
+    <div class="q-text">Hollywood _______ a big city in 1900. It _______ a small village. 🎥 <em>Choose the pair where the first blank is <strong>negative</strong> and the second is <strong>positive</strong> (both singular).</em></div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> wasn't / was</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> was / wasn't</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>wasn't / was</strong> — Hollywood NIE było dużym miastem (przeczenie → wasn't), ale BYŁO małą wioską (twierdzenie → was).</div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="card" data-q="15" data-type="mc" data-answer="a">
+    <div class="q-number">Question 15</div>
+    <div class="q-text">In 1900 there _______ a sports centre in Hollywood — it didn't exist yet. 🏊 <em>Choose the correct <strong>negative</strong> form for the subject "a sports centre" (singular).</em></div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> wasn't</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> weren't</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>wasn't</strong> — "a sports centre" = liczba pojedyncza → <em>wasn't</em>. &nbsp; Zasada: liczba pojedyncza → <strong>wasn't</strong> &nbsp;|&nbsp; liczba mnoga → <strong>weren't</strong></div>
+  </div>
+
+  <!-- Q16 -->
+  <div class="card" data-q="16" data-type="mc" data-answer="b">
+    <div class="q-number">Question 16</div>
+    <div class="q-text">The actors _______ amazing — the whole audience cheered! 👏 <em>Choose the correct <strong>positive</strong> form for "the actors" (plural).</em></div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> was</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> were</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>were</strong> — "the actors" = liczba mnoga → <em>were</em>. &nbsp; Zasada: I/he/she/it → <strong>was</strong> &nbsp;|&nbsp; you/we/they/liczba mnoga → <strong>were</strong></div>
+  </div>
+
+  <!-- SECTION 4: PAST SIMPLE – QUESTIONS -->
+  <div class="section-title"><span class="icon">❓</span> Section 4 – Past Simple: Questions</div>
+
+  <!-- Q17 -->
+  <div class="card" data-q="17" data-type="mc" data-answer="b">
+    <div class="q-number">Question 17</div>
+    <div class="q-text">_______ you at home last Saturday? 🏠 <em>Choose the correct <strong>question</strong> form for "you".</em></div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> Was</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> Were</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>Were</strong> — z "you" zawsze używamy <em>were</em>. &nbsp; Zasada: Was I/he/she/it…? &nbsp;|&nbsp; Were you/we/they…?</div>
+  </div>
+
+  <!-- Q18 -->
+  <div class="card" data-q="18" data-type="mc" data-answer="a">
+    <div class="q-number">Question 18</div>
+    <div class="q-text">_______ there any muffins in the fridge? 🧁 <em>Choose the correct <strong>question</strong> form for "muffins" (plural).</em></div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> Were</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> Was</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>Were</strong> — "muffins" = liczba mnoga → <em>Were there…?</em> &nbsp; Zasada: Was there a…? (poj.) &nbsp;|&nbsp; Were there any…? (mn.)</div>
+  </div>
+
+  <!-- Q19 -->
+  <div class="card" data-q="19" data-type="mc" data-answer="b">
+    <div class="q-number">Question 19</div>
+    <div class="q-text">_______ Rocco at the supermarket? — No, he wasn't. 🦝 <em>Choose the correct <strong>question</strong> form for "Rocco" (singular, = he).</em></div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> Were</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> Was</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>Was</strong> — "Rocco" = he = liczba pojedyncza → <em>Was</em>. Krótka odpowiedź też potwierdza: "No, he <strong>wasn't</strong>" (nie "weren't").</div>
+  </div>
+
+  <!-- Q20 -->
+  <div class="card" data-q="20" data-type="mc" data-answer="b">
+    <div class="q-number">Question 20</div>
+    <div class="q-text">Where _______ you last night, Al? 🔍 <em>Choose the correct <strong>question</strong> form for "you".</em></div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> was</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> were</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>were</strong> — z "you" zawsze używamy <em>were</em>, nawet w pytaniach z zaimkiem pytającym: Where were you? When were you?</div>
+  </div>
+
+  <!-- SECTION 5: TRUE / FALSE – Grammar Rules -->
+  <div class="section-title"><span class="icon">📖</span> Section 5 – True or False (Grammar Rules)</div>
+
+  <!-- Q21 -->
+  <div class="card" data-q="21" data-type="tf" data-answer="true">
+    <div class="q-number">Question 21</div>
+    <div class="q-text">We use <strong>"was"</strong> with the subjects: <em>I, he, she, it</em>.</div>
+    <div class="tf-options">
+      <button class="tf-btn" data-val="true">✔ True</button>
+      <button class="tf-btn" data-val="false">✘ False</button>
+    </div>
+    <div class="answer-reveal">✅ PRAWDA — I <strong>was</strong> / he <strong>was</strong> / she <strong>was</strong> / it <strong>was</strong>. To są wszystko formy w liczbie pojedynczej → używamy <em>was</em>.</div>
+  </div>
+
+  <!-- Q22 -->
+  <div class="card" data-q="22" data-type="tf" data-answer="false">
+    <div class="q-number">Question 22</div>
+    <div class="q-text">The negative of <strong>"was"</strong> is <strong>"weren't"</strong>.</div>
+    <div class="tf-options">
+      <button class="tf-btn" data-val="true">✔ True</button>
+      <button class="tf-btn" data-val="false">✘ False</button>
+    </div>
+    <div class="answer-reveal">✅ FAŁSZ — Przeczenie od <strong>was</strong> to <strong>wasn't</strong> (was not). &nbsp; <em>weren't</em> = were not (przeczenie w liczbie mnogiej).</div>
+  </div>
+
+  <!-- Q23 -->
+  <div class="card" data-q="23" data-type="tf" data-answer="true">
+    <div class="q-number">Question 23</div>
+    <div class="q-text">"There <strong>were</strong> some buses." → The negative form is: "There <strong>weren't</strong> any buses."</div>
+    <div class="tf-options">
+      <button class="tf-btn" data-val="true">✔ True</button>
+      <button class="tf-btn" data-val="false">✘ False</button>
+    </div>
+    <div class="answer-reveal">✅ PRAWDA — Twierdzenie (liczba mnoga): <em>There were some…</em> → Przeczenie: <em>There weren't any…</em></div>
+  </div>
+
+  <!-- Q24 -->
+  <div class="card" data-q="24" data-type="tf" data-answer="false">
+    <div class="q-number">Question 24</div>
+    <div class="q-text">To ask a question about "you" in the past, we say: <strong>"Was you at the park?"</strong></div>
+    <div class="tf-options">
+      <button class="tf-btn" data-val="true">✔ True</button>
+      <button class="tf-btn" data-val="false">✘ False</button>
+    </div>
+    <div class="answer-reveal">✅ FAŁSZ — Poprawna forma to <strong>"Were you at the park?"</strong> — z "you" zawsze używamy <em>were</em>, nigdy <em>was</em>.</div>
+  </div>
+
+  <!-- Q25 -->
+  <div class="card" data-q="25" data-type="tf" data-answer="true">
+    <div class="q-number">Question 25</div>
+    <div class="q-text">"Was there a cinema?" asks about ONE cinema (singular). "Were there any cinemas?" asks about MORE THAN ONE (plural).</div>
+    <div class="tf-options">
+      <button class="tf-btn" data-val="true">✔ True</button>
+      <button class="tf-btn" data-val="false">✘ False</button>
+    </div>
+    <div class="answer-reveal">✅ PRAWDA — <em>Was there a…?</em> = liczba pojedyncza &nbsp;|&nbsp; <em>Were there any…?</em> = liczba mnoga. Ta sama zasada: there <strong>was</strong> a… / there <strong>were</strong> some…</div>
+  </div>
+
+  <!-- SECTION 6: DIRECTIONS -->
+  <div class="section-title"><span class="icon">🗺️</span> Section 6 – Directions</div>
+
+  <!-- Q26 -->
+  <div class="card" data-q="26" data-type="mc" data-answer="c">
+    <div class="q-number">Question 26</div>
+    <div class="q-text">To ask for directions you say: "Excuse me. _______"</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> Go straight on.</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> It's on the left.</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> I'm looking for a library.</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> Turn right.</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>I'm looking for a library.</strong> = <em>Szukam biblioteki.</em> — To jest zwrot, którego używasz, żeby zapytać o drogę.</div>
+  </div>
+
+  <!-- Q27 -->
+  <div class="card" data-q="27" data-type="mc" data-answer="a">
+    <div class="q-number">Question 27</div>
+    <div class="q-text">"Go _______ on" means keep walking forward without turning.</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> straight</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> past</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> right</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> left</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>straight</strong> — <em>Go straight on</em> = Idź prosto.</div>
+  </div>
+
+  <!-- Q28 -->
+  <div class="card" data-q="28" data-type="mc" data-answer="b">
+    <div class="q-number">Question 28</div>
+    <div class="q-text">The library is on Green Street. How do you say this in English?</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> It's next to Green Street.</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> It's on Green Street.</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> It's behind Green Street.</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> Go past Green Street.</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>It's on Green Street.</strong> = <em>Jest na ulicy Green Street.</em> — Używamy przyimka <em>on</em> z nazwami ulic.</div>
+  </div>
+
+  <!-- Q29 -->
+  <div class="card" data-q="29" data-type="mc" data-answer="d">
+    <div class="q-number">Question 29</div>
+    <div class="q-text">What does "Skręć w lewo" mean in English?</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> Go straight on</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> Turn right</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> Go past the cinema</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> Turn left</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>Turn left</strong> = <em>Skręć w lewo.</em> — Turn right = skręć w prawo.</div>
+  </div>
+
+  <!-- Q30 -->
+  <div class="card" data-q="30" data-type="mc" data-answer="c">
+    <div class="q-number">Question 30</div>
+    <div class="q-text">Boy: Where's North Street? Is it far? Girl: No, it _______. Go straight on, past the hotel.</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> isn't far</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> is far</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> isn't</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> is</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>isn't</strong> — "No, it isn't" = <em>Nie, niedaleko.</em> Krótka odpowiedź na pytanie "Is it far?"</div>
+  </div>
+
+  <!-- SECTION 7: ADJECTIVES -->
+  <div class="section-title"><span class="icon">🎨</span> Section 7 – Adjectives</div>
+
+  <!-- Q31 -->
+  <div class="card" data-q="31" data-type="mc" data-answer="b">
+    <div class="q-number">Question 31</div>
+    <div class="q-text">What is the opposite of "big"?</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> dirty</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> small</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> quiet</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> boring</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>small</strong> = <em>mały</em> — przeciwieństwo <em>big</em> (duży).</div>
+  </div>
+
+  <!-- Q32 -->
+  <div class="card" data-q="32" data-type="mc" data-answer="a">
+    <div class="q-number">Question 32</div>
+    <div class="q-text">What is the opposite of "clean"?</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> dirty</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> old</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> busy</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> boring</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>dirty</strong> = <em>brudny</em> — przeciwieństwo <em>clean</em> (czysty).</div>
+  </div>
+
+  <!-- Q33 -->
+  <div class="card" data-q="33" data-type="mc" data-answer="c">
+    <div class="q-number">Question 33</div>
+    <div class="q-text">What is the opposite of "interesting"?</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> quiet</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> busy</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> boring</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> modern</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>boring</strong> = <em>nudny</em> — przeciwieństwo <em>interesting</em> (interesujący).</div>
+  </div>
+
+  <!-- Q34 -->
+  <div class="card" data-q="34" data-type="mc" data-answer="d">
+    <div class="q-number">Question 34</div>
+    <div class="q-text">What is the opposite of "old"?</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> large</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> quiet</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> busy</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> modern</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>modern</strong> = <em>nowoczesny</em> — przeciwieństwo <em>old</em> (stary).</div>
+  </div>
+
+  <!-- SECTION 8: FILL IN THE BLANK -->
+  <div class="section-title"><span class="icon">✏️</span> Section 8 – Fill in the Blank</div>
+
+  <!-- Q35 -->
+  <div class="card" data-q="35" data-type="mc" data-answer="b">
+    <div class="q-number">Question 35</div>
+    <div class="q-text">In 1912 there _______ fifteen film studios in Hollywood. 🎬 <em>Choose the correct <strong>positive</strong> form for "fifteen studios" (plural).</em></div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> was</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> were</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>were</strong> — "fifteen studios" = liczba mnoga + twierdzenie → <em>were</em>.</div>
+  </div>
+
+  <!-- Q36 -->
+  <div class="card" data-q="36" data-type="mc" data-answer="a">
+    <div class="q-number">Question 36</div>
+    <div class="q-text">In the past there _______ a supermarket in Portree — it was a quiet little town. 🏘️ <em>Choose the correct <strong>negative</strong> form for "a supermarket" (singular).</em></div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> wasn't</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> weren't</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>wasn't</strong> — "a supermarket" = liczba pojedyncza + przeczenie → <em>wasn't</em>.</div>
+  </div>
+
+  <!-- Q37 -->
+  <div class="card" data-q="37" data-type="fill" data-answer="between">
+    <div class="q-number">Question 37</div>
+    <div class="q-text">The museum is _______ the cinema and the theatre. (Use a preposition of place)</div>
+    <div class="word-bank"><span>behind</span><span>between</span><span>opposite</span><span>next to</span></div>
+    <input class="blank-input" type="text" placeholder="Type your answer here..." autocomplete="off">
+    <div class="answer-reveal">✅ Correct answer: <strong>between</strong></div>
+  </div>
+
+  <!-- Q38 -->
+  <div class="card" data-q="38" data-type="fill" data-answer="straight">
+    <div class="q-number">Question 38</div>
+    <div class="q-text">Go _______ on, past the bank. Then turn left.</div>
+    <div class="word-bank"><span>straight</span><span>past</span><span>left</span><span>right</span></div>
+    <input class="blank-input" type="text" placeholder="Type your answer here..." autocomplete="off">
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>straight</strong> — <em>Go straight on</em> = Idź prosto.</div>
+  </div>
+
+  <!-- SECTION 9: TIME EXPRESSIONS -->
+  <div class="section-title"><span class="icon">🕐</span> Section 9 – Time Expressions & Mixed</div>
+
+  <!-- Q39 -->
+  <div class="card" data-q="39" data-type="mc" data-answer="b">
+    <div class="q-number">Question 39</div>
+    <div class="q-text">Which time expression is correct? "My friends and I _______ at the park last Saturday."</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> are</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> were</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> is</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> was</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>were</strong> — "my friends and I" = liczba mnoga (they) → <em>were</em>. Dodatkowo: "last Saturday" = czas przeszły, więc NIE używamy <em>are</em>.</div>
+  </div>
+
+  <!-- Q40 -->
+  <div class="card" data-q="40" data-type="mc" data-answer="c">
+    <div class="q-number">Question 40</div>
+    <div class="q-text">How do you say "w 2014 roku" in English?</div>
+    <div class="options">
+      <button class="option-btn" data-val="a"><span class="option-label">A</span> on 2014</button>
+      <button class="option-btn" data-val="b"><span class="option-label">B</span> at 2014</button>
+      <button class="option-btn" data-val="c"><span class="option-label">C</span> in 2014</button>
+      <button class="option-btn" data-val="d"><span class="option-label">D</span> last 2014</button>
+    </div>
+    <div class="answer-reveal">✅ Poprawna odpowiedź: <strong>in 2014</strong> = <em>w 2014 roku</em>. Zasada: z latami używamy <em>in</em>: in 1900, in 2014, in 2025.</div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-wrap">
+    <button class="submit-btn" onclick="submitTest()">✅ Sprawdź odpowiedzi</button>
+  </div>
+
+  <!-- SCORE BOX -->
+  <div class="score-box" id="scoreBox">
+    <span class="score-emoji" id="scoreEmoji">🏆</span>
+    <div class="score-number" id="scoreNum">0/40</div>
+    <div class="score-label">Poprawnych odpowiedzi</div>
+    <div class="score-grade" id="scoreGrade">Keep practising!</div>
+  </div>
+
+</div>
+
+<footer>Unit 5 – My Town • English Language Test • All rights reserved</footer>
+
+<script>
+  const TOTAL = 40;
+  let score = 0;
+  let answered = new Set();
+
+  function updateProgress() {
+    const pct = (answered.size / TOTAL) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressText').textContent = answered.size + ' / ' + TOTAL + ' answered';
+  }
+
+  function checkIfAllDone() {
+    if (answered.size === TOTAL) {
+      document.querySelector('.submit-btn').style.background = 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)';
+      document.querySelector('.submit-btn').textContent = '🏁 Zobacz wynik końcowy!';
+    }
+  }
+
+  function revealMC(card, selectedVal) {
+    const correct = card.dataset.answer.toLowerCase().trim();
+    const reveal = card.querySelector('.answer-reveal');
+    const isCorrect = selectedVal === correct;
+
+    card.querySelectorAll('.option-btn').forEach(btn => {
+      btn.disabled = true;
+      if (btn.dataset.val === correct) btn.classList.add('correct');
+      if (btn.dataset.val === selectedVal && !isCorrect) btn.classList.add('wrong');
+    });
+
+    reveal.classList.add('show', isCorrect ? 'correct-ans' : 'wrong-ans');
+    card.dataset.locked = 'true';
+    card.dataset.iscorrect = isCorrect ? '1' : '0';
+
+    // Flash card border
+    card.style.transition = 'border-color 0.3s';
+    card.style.borderColor = isCorrect ? 'var(--green)' : 'var(--red)';
+  }
+
+  function revealTF(card, selectedVal) {
+    const correct = card.dataset.answer.toLowerCase().trim();
+    const reveal = card.querySelector('.answer-reveal');
+    const isCorrect = selectedVal === correct;
+
+    card.querySelectorAll('.tf-btn').forEach(btn => {
+      btn.disabled = true;
+      if (btn.dataset.val === correct) btn.classList.add('correct');
+      if (btn.dataset.val === selectedVal && !isCorrect) btn.classList.add('wrong');
+    });
+
+    reveal.classList.add('show', isCorrect ? 'correct-ans' : 'wrong-ans');
+    card.dataset.locked = 'true';
+    card.dataset.iscorrect = isCorrect ? '1' : '0';
+    card.style.transition = 'border-color 0.3s';
+    card.style.borderColor = isCorrect ? 'var(--green)' : 'var(--red)';
+  }
+
+  // Multiple choice – immediate feedback
+  document.querySelectorAll('.card[data-type="mc"] .option-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const card = this.closest('.card');
+      if (card.dataset.locked) return;
+      const val = this.dataset.val;
+      card.dataset.selected = val;
+      answered.add(card.dataset.q);
+      revealMC(card, val);
+      updateProgress();
+      checkIfAllDone();
+    });
+  });
+
+  // True/False – immediate feedback
+  document.querySelectorAll('.card[data-type="tf"] .tf-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const card = this.closest('.card');
+      if (card.dataset.locked) return;
+      const val = this.dataset.val;
+      card.dataset.selected = val;
+      answered.add(card.dataset.q);
+      revealTF(card, val);
+      updateProgress();
+      checkIfAllDone();
+    });
+  });
+
+  // Fill in blank – check on Enter key or when user leaves the field
+  document.querySelectorAll('.card[data-type="fill"] .blank-input').forEach(inp => {
+    function checkFill() {
+      const card = inp.closest('.card');
+      if (card.dataset.locked) return;
+      const typed = inp.value.trim().toLowerCase();
+      if (!typed) return;
+
+      const correct = card.dataset.answer.toLowerCase().trim();
+      const acceptedAnswers = [correct, correct.replace(/['']/g, "'"), correct.replace(/['']/g, "\u2019")];
+      const isCorrect = acceptedAnswers.some(a => typed === a);
+
+      inp.classList.add(isCorrect ? 'correct' : 'wrong');
+      inp.disabled = true;
+
+      const reveal = card.querySelector('.answer-reveal');
+      reveal.classList.add('show', isCorrect ? 'correct-ans' : 'wrong-ans');
+
+      card.dataset.locked = 'true';
+      card.dataset.iscorrect = isCorrect ? '1' : '0';
+      card.style.transition = 'border-color 0.3s';
+      card.style.borderColor = isCorrect ? 'var(--green)' : 'var(--red)';
+
+      answered.add(card.dataset.q);
+      updateProgress();
+      checkIfAllDone();
+    }
+
+    inp.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); checkFill(); }
+    });
+    inp.addEventListener('blur', checkFill);
+  });
+
+  function submitTest() {
+    // Count correct from data attributes set during immediate feedback
+    score = 0;
+    document.querySelectorAll('.card[data-q]').forEach(card => {
+      if (card.dataset.iscorrect === '1') score++;
+      // Lock any unanswered fill inputs
+      if (card.dataset.type === 'fill' && !card.dataset.locked) {
+        const inp = card.querySelector('.blank-input');
+        const reveal = card.querySelector('.answer-reveal');
+        inp.disabled = true;
+        reveal.classList.add('show', 'wrong-ans');
+        card.dataset.locked = 'true';
+        card.style.borderColor = 'var(--red)';
+      }
+    });
+
+    const pct = Math.round((score / TOTAL) * 100);
+    const box = document.getElementById('scoreBox');
+    document.getElementById('scoreNum').textContent = score + ' / ' + TOTAL;
+
+    let grade, emoji;
+    if (pct >= 90) { grade = '🌟 Doskonale! Wspaniała robota!'; emoji = '🏆'; }
+    else if (pct >= 75) { grade = '👍 Bardzo dobrze! Brawo!'; emoji = '😊'; }
+    else if (pct >= 60) { grade = '📚 Dobrze! Ćwicz dalej!'; emoji = '🙂'; }
+    else if (pct >= 40) { grade = '💪 Nie poddawaj się! Dasz radę!'; emoji = '😐'; }
+    else { grade = '📖 Powtórz materiał i spróbuj jeszcze raz!'; emoji = '😟'; }
+
+    document.getElementById('scoreGrade').textContent = grade + ' (' + pct + '%)';
+    document.getElementById('scoreEmoji').textContent = emoji;
+    box.classList.add('show');
+
+    document.querySelector('.submit-btn').disabled = true;
+    document.querySelector('.submit-btn').textContent = '✅ Test wysłany!';
+    document.querySelector('.submit-btn').style.background = '#94a3b8';
+
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    updateProgress();
+  }
+</script>
+</body>
+</html>
