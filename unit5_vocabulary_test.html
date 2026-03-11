@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 5 – Vocabulary Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1b2d;
+    --surface: #162236;
+    --card: #1e3050;
+    --accent: #f5a623;
+    --accent2: #4ecdc4;
+    --correct: #2ecc71;
+    --wrong: #e74c3c;
+    --text: #e8f0fe;
+    --muted: #7a9cc0;
+    --border: #2a4a6b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(78,205,196,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(245,166,35,0.08) 0%, transparent 50%);
+  }
+
+  /* STICKY PROGRESS BAR */
+  #progress-bar-wrap {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,27,45,0.95);
+    backdrop-filter: blur(12px);
+    padding: 12px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 16px;
+  }
+  #progress-track {
+    flex: 1; height: 8px; background: var(--border);
+    border-radius: 99px; overflow: hidden;
+  }
+  #progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+  #score-label {
+    font-weight: 800; font-size: 14px; white-space: nowrap;
+    color: var(--accent);
+    min-width: 90px; text-align: right;
+  }
+
+  header {
+    text-align: center;
+    padding: 52px 24px 32px;
+  }
+  .unit-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: #0f1b2d;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 99px;
+    margin-bottom: 16px;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    line-height: 1.15;
+    color: #fff;
+  }
+  header h1 span { color: var(--accent); }
+  header p {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  /* SECTION */
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    margin: 40px 0 20px;
+  }
+  .section-icon {
+    width: 40px; height: 40px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: #fff;
+  }
+  .section-header small {
+    display: block;
+    font-size: 12px; color: var(--muted);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    letter-spacing: .5px;
+  }
+
+  /* QUESTION CARD */
+  .q-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 580px) { .q-grid { grid-template-columns: 1fr; } }
+
+  .q-card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 16px 18px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .q-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--border);
+    border-radius: 99px 0 0 99px;
+    transition: background 0.3s;
+  }
+  .q-card.correct { border-color: var(--correct); box-shadow: 0 0 18px rgba(46,204,113,0.15); }
+  .q-card.correct::before { background: var(--correct); }
+  .q-card.wrong { border-color: var(--wrong); box-shadow: 0 0 18px rgba(231,76,60,0.15); }
+  .q-card.wrong::before { background: var(--wrong); }
+
+  .q-prompt {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .q-word {
+    font-size: 17px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .q-word em {
+    font-style: normal;
+    color: var(--accent2);
+    font-size: 12px;
+    font-weight: 600;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .q-input-wrap { position: relative; }
+  .q-input {
+    width: 100%;
+    background: rgba(0,0,0,0.25);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 38px 9px 12px;
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .q-input:focus { border-color: var(--accent2); }
+  .q-input::placeholder { color: #3a5a7a; }
+  .q-status-icon {
+    position: absolute; right: 10px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    display: none;
+  }
+  .q-card.correct .q-status-icon { display: block; }
+  .q-card.wrong .q-status-icon { display: block; }
+
+  .q-answer-reveal {
+    font-size: 12px;
+    margin-top: 7px;
+    color: var(--muted);
+    min-height: 16px;
+    font-weight: 600;
+  }
+  .q-answer-reveal span { color: var(--correct); }
+  .q-answer-reveal .wrong-reveal { color: var(--wrong); }
+
+  /* FINAL SCORE */
+  #final-score {
+    margin-top: 50px;
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 24px;
+    padding: 40px 32px;
+    text-align: center;
+    display: none;
+    animation: fadeUp 0.6s ease both;
+  }
+  #final-score h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .big-score {
+    font-size: 72px;
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 16px 0;
+  }
+  .grade-msg {
+    font-size: 18px;
+    color: var(--muted);
+    font-weight: 700;
+  }
+  .retry-btn {
+    margin-top: 24px;
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent2), #3ab5ad);
+    color: #0f1b2d;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    padding: 12px 32px;
+    border-radius: 99px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .retry-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(78,205,196,0.3); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.04); }
+    100% { transform: scale(1); }
+  }
+  .q-card.correct { animation: pop 0.3s ease; }
+
+  .direction-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 99px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .badge-en { background: rgba(245,166,35,0.15); color: var(--accent); border: 1px solid rgba(245,166,35,0.3); }
+  .badge-pl { background: rgba(78,205,196,0.15); color: var(--accent2); border: 1px solid rgba(78,205,196,0.3); }
+</style>
+</head>
+<body>
+
+<div id="progress-bar-wrap">
+  <div id="progress-track"><div id="progress-fill"></div></div>
+  <div id="score-label">0 / 0</div>
+</div>
+
+<header>
+  <div class="unit-tag">Unit 5</div>
+  <h1>Vocabulary <span>Test</span></h1>
+  <p>Wpisz angielskie tłumaczenie i naciśnij <strong>Enter</strong> • Lekcje 5.1 – 5.6</p>
+</header>
+
+<div class="container" id="quiz-container"></div>
+
+<script>
+// ─── VOCABULARY DATA ───────────────────────────────────────────────────────
+const sections = [
+  {
+    icon: '🏙️',
+    title: 'Places in Town (1)',
+    subtitle: 'Lesson 5.1',
+    questions: [
+      { en: 'bank', pl: 'bank' },
+      { en: 'cafe', pl: 'kawiarnia' },
+      { en: 'cinema', pl: 'kino' },
+      { en: 'hospital', pl: 'szpital' },
+      { en: 'hotel', pl: 'hotel' },
+      { en: 'library', pl: 'biblioteka' },
+      { en: 'museum', pl: 'muzeum' },
+      { en: 'park', pl: 'park' },
+      { en: 'restaurant', pl: 'restauracja' },
+      { en: 'shop', pl: 'sklep' },
+      { en: 'stadium', pl: 'stadion' },
+      { en: 'supermarket', pl: 'supermarket' },
+      { en: 'theatre', pl: 'teatr' },
+    ]
+  },
+  {
+    icon: '📍',
+    title: 'Prepositions of Place',
+    subtitle: 'Lesson 5.1',
+    questions: [
+      { en: 'behind', pl: 'za' },
+      { en: 'between', pl: 'pomiedzy', alt: ['pomiędzy'] },
+      { en: 'in front of', pl: 'przed' },
+      { en: 'next to', pl: 'obok' },
+      { en: 'opposite', pl: 'naprzeciv', alt: ['naprzeciw', 'naprzeciv'] },
+    ]
+  },
+  {
+    icon: '📖',
+    title: 'Extra Vocabulary',
+    subtitle: 'Lesson 5.1',
+    questions: [
+      { en: 'Egyptian mummy', pl: 'egipska mumia' },
+      { en: 'get', pl: 'dostac', alt: ['dostać'] },
+      { en: 'policeman', pl: 'policjant' },
+      { en: 'see a doctor', pl: 'isc do lekarza', alt: ['iść do lekarza'] },
+      { en: 'see a film', pl: 'obejrzec film', alt: ['obejrzeć film'] },
+    ]
+  },
+  {
+    icon: '🕐',
+    title: 'Time Expressions',
+    subtitle: 'Lesson 5.2',
+    questions: [
+      { en: 'yesterday', pl: 'wczoraj' },
+      { en: 'last month', pl: 'w zeszlym miesiacu', alt: ['w zeszłym miesiącu'] },
+      { en: 'last night', pl: 'wczoraj wieczorem' },
+      { en: 'last week', pl: 'w zeszlym tygodniu', alt: ['w zeszłym tygodniu'] },
+      { en: 'last Monday', pl: 'w zeszly poniedzialek', alt: ['w zeszły poniedziałek'] },
+      { en: 'in 2014', pl: 'w 2014 roku' },
+    ]
+  },
+  {
+    icon: '🗣️',
+    title: 'Vocabulary',
+    subtitle: 'Lesson 5.2',
+    questions: [
+      { en: 'actor', pl: 'aktor' },
+      { en: 'after', pl: 'po' },
+      { en: 'bus', pl: 'autobus' },
+      { en: 'closed', pl: 'zamkniety', alt: ['zamknięty'] },
+      { en: 'flat tyre', pl: 'przebita opona' },
+      { en: 'ill', pl: 'chory' },
+      { en: 'little sister', pl: 'mlodsza siostra', alt: ['młodsza siostra'] },
+      { en: 'out of battery', pl: 'rozladowany', alt: ['rozładowany'] },
+      { en: 'pizzeria', pl: 'pizzeria' },
+      { en: 'plan', pl: 'plan' },
+      { en: 'sports centre', pl: 'centrum sportowe' },
+      { en: 'sunny', pl: 'sloneczny', alt: ['słoneczny'] },
+      { en: 'take', pl: 'brac', alt: ['brać'] },
+    ]
+  },
+  {
+    icon: '💬',
+    title: 'Phrases & Vocabulary',
+    subtitle: 'Lesson 5.3',
+    questions: [
+      { en: 'alone', pl: 'sam' },
+      { en: 'Are you OK?', pl: 'wszystko w porzadku', alt: ['wszystko w porządku'] },
+      { en: 'bad dream', pl: 'zly sen', alt: ['zły sen'] },
+      { en: 'be asleep', pl: 'spac', alt: ['spać'] },
+      { en: "It wasn't me.", pl: 'to nie bylem ja', alt: ['to nie byłem ja', 'to nie bylam ja', 'to nie byłam ja'] },
+      { en: 'muffin', pl: 'babeczka' },
+      { en: 'next', pl: 'nastepny', alt: ['następny'] },
+      { en: 'plate', pl: 'talerz' },
+      { en: 'surprised', pl: 'zaskoczony' },
+      { en: 'tell the truth', pl: 'mowic prawde', alt: ['mówić prawdę'] },
+      { en: 'wake up', pl: 'obudzic sie', alt: ['obudzić się'] },
+      { en: "What's happening?", pl: 'co sie dzieje', alt: ['co się dzieje'] },
+    ]
+  },
+  {
+    icon: '🗺️',
+    title: 'Directions',
+    subtitle: 'Lesson 5.4',
+    questions: [
+      { en: 'Go straight on.', pl: 'idz prosto', alt: ['idź prosto'] },
+      { en: "Go past the cinema.", pl: 'idz, az miniesz kino', alt: ['idź, aż miniesz kino'] },
+      { en: 'Turn left / right.', pl: 'skrec w lewo/prawo', alt: ['skręć w lewo/prawo'] },
+      { en: "It's on the left / right.", pl: 'jest po lewej/prawej' },
+      { en: "Is it far?", pl: 'czy to daleko' },
+      { en: "I'm looking for a library.", pl: 'szukam biblioteki' },
+      { en: "It's on Green Street.", pl: 'to jest na green street' },
+      { en: "Excuse me. Where's North Street?", pl: 'przepraszam, gdzie jest north street' },
+      { en: "How can I get to the Science Museum?", pl: 'jak dostane sie do muzeum nauki', alt: ['jak dostanę się do muzeum nauki'] },
+    ]
+  },
+  {
+    icon: '🏛️',
+    title: 'Places in Town (2)',
+    subtitle: 'Lesson 5.5',
+    questions: [
+      { en: 'police station', pl: 'komisariat policji' },
+      { en: 'post office', pl: 'poczta' },
+      { en: 'shopping centre', pl: 'centrum handlowe' },
+      { en: 'swimming pool', pl: 'basen' },
+      { en: 'train station', pl: 'stacja kolejowa' },
+      { en: 'busy', pl: 'zajety', alt: ['zajęty'] },
+      { en: 'famous for', pl: 'znany z' },
+      { en: 'film industry', pl: 'przemysl filmowy', alt: ['przemysł filmowy'] },
+      { en: 'film studio', pl: 'studio filmowe' },
+      { en: 'large', pl: 'duzy', alt: ['duży'] },
+      { en: 'later', pl: 'pozniej', alt: ['później'] },
+      { en: 'modern', pl: 'nowoczesny' },
+      { en: 'theme park', pl: 'park tematyczny' },
+      { en: 'tourist', pl: 'turysta' },
+      { en: 'village', pl: 'wioska' },
+    ]
+  },
+  {
+    icon: '✨',
+    title: 'Adjectives',
+    subtitle: 'Lesson 5.6',
+    questions: [
+      { en: 'big', pl: 'duzy', alt: ['duży'] },
+      { en: 'boring', pl: 'nudny' },
+      { en: 'busy', pl: 'ruchliwy', alt: ['zajęty', 'zajety'] },
+      { en: 'clean', pl: 'czysty' },
+      { en: 'dirty', pl: 'brudny' },
+      { en: 'interesting', pl: 'interesujacy', alt: ['interesujący'] },
+      { en: 'old', pl: 'stary' },
+      { en: 'quiet', pl: 'cichy' },
+      { en: 'small', pl: 'maly', alt: ['mały'] },
+    ]
+  },
+];
+
+// ─── BUILD QUIZ ────────────────────────────────────────────────────────────
+const container = document.getElementById('quiz-container');
+let totalQ = 0, answeredQ = 0, correctQ = 0;
+const allCards = [];
+
+// Normalize: lowercase, trim, remove diacritics for lenient match
+function normalize(str) {
+  return str.toLowerCase().trim().replace(/\s+/g,' ');
+}
+
+function checkAnswer(card, input, correctAnswers, correctDisplay) {
+  const val = normalize(input.value);
+  if (!val) return;
+
+  const ok = correctAnswers.some(a => normalize(a) === val);
+  card.classList.remove('correct', 'wrong');
+
+  if (ok) {
+    card.classList.add('correct');
+    card.querySelector('.q-status-icon').textContent = '✓';
+    card.querySelector('.q-answer-reveal').innerHTML = '<span>✓ Correct!</span>';
+    input.style.color = 'var(--correct)';
+    if (!card.dataset.answered) { correctQ++; }
+  } else {
+    card.classList.add('wrong');
+    card.querySelector('.q-status-icon').textContent = '✗';
+    card.querySelector('.q-answer-reveal').innerHTML =
+      `<span class="wrong-reveal">✗</span> Answer: <span>${correctDisplay}</span>`;
+    input.style.color = 'var(--wrong)';
+  }
+
+  if (!card.dataset.answered) {
+    card.dataset.answered = '1';
+    answeredQ++;
+  }
+
+  updateProgress();
+  checkComplete();
+}
+
+function updateProgress() {
+  const pct = totalQ > 0 ? (answeredQ / totalQ) * 100 : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('score-label').textContent = `${correctQ} / ${answeredQ}`;
+}
+
+function checkComplete() {
+  if (answeredQ === totalQ) {
+    const fs = document.getElementById('final-score');
+    fs.style.display = 'block';
+    const pct = Math.round((correctQ / totalQ) * 100);
+    document.getElementById('final-pct').textContent = pct + '%';
+    let msg = pct >= 90 ? '🏆 Excellent! Outstanding work!' :
+              pct >= 75 ? '🎉 Great job! Keep it up!' :
+              pct >= 60 ? '👍 Good effort! Review the ones you missed.' :
+                          '📚 Keep studying — you\'ll get there!';
+    document.getElementById('grade-msg').textContent = msg;
+  }
+}
+
+// Build sections
+sections.forEach(sec => {
+  const secDiv = document.createElement('div');
+
+  secDiv.innerHTML = `
+    <div class="section-header">
+      <div class="section-icon">${sec.icon}</div>
+      <div>
+        <h2>${sec.title}</h2>
+        <small>${sec.subtitle}</small>
+      </div>
+    </div>
+    <div class="q-grid" id="grid-${sec.title.replace(/\s/g,'_')}"></div>
+  `;
+  container.appendChild(secDiv);
+  const grid = secDiv.querySelector('.q-grid');
+
+  sec.questions.forEach((q, i) => {
+    totalQ++;
+
+    // Randomly decide direction (50/50) — but always EN→PL for phrases
+    const isPhrase = q.en.includes(' ') && q.en.length > 12;
+    const enToPl = true; // Always EN → PL (user asked for Polish translation)
+
+    const correctAnswers = [q.en];
+    const correctDisplay = q.en;
+    const prompt = 'Przetłumacz na angielski:';
+    const word = q.pl;
+
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.innerHTML = `
+      <div class="direction-badge badge-pl">PL → EN</div>
+      <div class="q-prompt">${prompt}</div>
+      <div class="q-word">${word}</div>
+      <div class="q-input-wrap">
+        <input class="q-input" type="text" placeholder="English translation…" autocomplete="off" spellcheck="false">
+        <span class="q-status-icon"></span>
+      </div>
+      <div class="q-answer-reveal"></div>
+    `;
+    grid.appendChild(card);
+    allCards.push(card);
+
+    const input = card.querySelector('.q-input');
+
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        checkAnswer(card, input, correctAnswers, correctDisplay);
+        // Move to next input
+        const all = document.querySelectorAll('.q-input');
+        const idx = Array.from(all).indexOf(input);
+        if (idx < all.length - 1) all[idx + 1].focus();
+      }
+    });
+
+    input.addEventListener('blur', () => {
+      if (input.value.trim()) checkAnswer(card, input, correctAnswers, correctDisplay);
+    });
+  });
+});
+
+// Final score section
+const finalDiv = document.createElement('div');
+finalDiv.id = 'final-score';
+finalDiv.innerHTML = `
+  <h3>Test Complete!</h3>
+  <div class="big-score" id="final-pct">0%</div>
+  <div class="grade-msg" id="grade-msg"></div>
+  <button class="retry-btn" onclick="location.reload()">🔄 Try Again</button>
+`;
+container.appendChild(finalDiv);
+
+updateProgress();
+</script>
+</body>
+</html>
